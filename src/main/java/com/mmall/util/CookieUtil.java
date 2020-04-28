@@ -45,13 +45,18 @@ public class CookieUtil {
         }
     }
 
-
+    //X:domain=".happymmall.com"
+    //a:A.happymmall.com            cookie:domain=A.happymmall.com;path="/"
+    //b:B.happymmall.com            cookie:domain=B.happymmall.com;path="/"
+    //c:A.happymmall.com/test/cc    cookie:domain=A.happymmall.com;path="/test/cc"
+    //d:A.happymmall.com/test/dd    cookie:domain=A.happymmall.com;path="/test/dd"
+    //e:A.happymmall.com/test       cookie:domain=A.happymmall.com;path="/test"
 
     public static void writeLoginToken(HttpServletResponse response,String token){
         Cookie ck = new Cookie(COOKIE_NAME,token);
         ck.setDomain(COOKIE_DOMAIN);
         ck.setPath("/");//代表设置在根目录 如果设置成“test”，则只有子目录下的文件能得到Cookie
-
+        ck.setHttpOnly(true);
         //单位是秒。
         //如果这个maxage不设置的话，cookie就不会写入硬盘，而是写在内存，只在当前页面有效
         ck.setMaxAge(60*60*24*365);//如果是-1，代表永久
